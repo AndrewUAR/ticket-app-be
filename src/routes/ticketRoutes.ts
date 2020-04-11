@@ -8,5 +8,6 @@ router
   .get('/tickets', verifyToken, Ticket.prototype.getAllTickets)
   .post('/tickets', verifyToken, Ticket.prototype.addTicket)
   .patch('/tickets/:id', verifyToken, Ticket.prototype.editTicket)
+  .delete('/tickets/:id', verifyToken, Ticket.prototype.deleteTicket)
 
 export default router;
