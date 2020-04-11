@@ -80,4 +80,18 @@ export class Ticket {
       ctx.body = error;
     }
   }
+
+  public async closeTicket(ctx: Context): Promise<void> {
+    try {
+      const { _id } = ctx.params;
+      await TicketModel.updateOne({ _id }, {
+        closed: true, 
+        status: 'Closed', 
+        dueDate: new Date() 
+      });
+      ctx.body = { message: 'Ticket closed successfully'}
+    } catch (error) {
+      ctx.body = error;
+    }
+  }
 }
