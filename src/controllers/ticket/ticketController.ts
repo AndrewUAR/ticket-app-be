@@ -62,4 +62,22 @@ export class Ticket {
       ctx.body = error;
     }
   }
+
+  public async deleteTicket(ctx: Context): Promise<void> {
+    try {
+      const { _id } = ctx.params;
+      const { userId} = ctx.state.user;
+      await TicketModel.deleteOne({ _id });
+      await UserModel.updateOne({ userId }, { 
+        $pull: {
+          tickets: {
+            ticket: _id
+          }
+        }
+       });
+      ctx.body = { message: 'Ticket deleted successfully'}
+    } catch (error) {
+      ctx.body = error;
+    }
+  }
 }
